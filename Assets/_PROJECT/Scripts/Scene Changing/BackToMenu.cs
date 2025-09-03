@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public class PauseToMenu : MonoBehaviour
+public class BackToMenu : MonoBehaviour
 {
     [SerializeField] private string mainMenuSceneName = "Main Menu";
 
