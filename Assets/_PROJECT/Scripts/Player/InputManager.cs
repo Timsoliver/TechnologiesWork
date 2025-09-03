@@ -11,10 +11,13 @@ public class InputManager : MonoBehaviour
     
     PlayerControls controls;
     PlayerControls.GroundMovementActions groundMovement;
-
+    
     private Vector2 horizontalInput;
     private Vector2 mouseInput;
 
+    [Header("Camera")] 
+    public Camera cam;
+    
     private void Awake()
     {
         controls = new PlayerControls();
@@ -26,6 +29,7 @@ public class InputManager : MonoBehaviour
         
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
+        
     }
 
     private void Update()
@@ -38,7 +42,7 @@ public class InputManager : MonoBehaviour
     {
         controls.Enable();
     }
-
+    
     private void OnDestroy()
     {
         controls.Disable();
