@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
+  m_Name: Background
   m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -32,9 +32,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: ed6c4a120b94c434bbbfaf4960d20df3, type: 3}
-        m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: d7f8b148f2ddfd04d9e41e1a8ec062b6, type: 3}
+        m_Scale: {x: 0.03, y: 0.06}
+        m_Offset: {x: -0.94, y: -0.61}
     - _BentNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -72,9 +72,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed6c4a120b94c434bbbfaf4960d20df3, type: 3}
-        m_Scale: {x: 2.49, y: 2.52}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: d7f8b148f2ddfd04d9e41e1a8ec062b6, type: 3}
+        m_Scale: {x: 0.03, y: 0.07}
+        m_Offset: {x: 0, y: -0.55}
     - _MaskMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -116,9 +116,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UnlitColorMap:
-        m_Texture: {fileID: 2800000, guid: ed6c4a120b94c434bbbfaf4960d20df3, type: 3}
-        m_Scale: {x: 2.49, y: 2.52}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: d7f8b148f2ddfd04d9e41e1a8ec062b6, type: 3}
+        m_Scale: {x: 0.03, y: 0.07}
+        m_Offset: {x: 0, y: -0.55}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -200,7 +200,7 @@ Material:
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
     - _IncludeIndirectLighting: 1
-    - _InvTilingScale: 0.1
+    - _InvTilingScale: 22.222223
     - _Ior: 1.5
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
@@ -272,7 +272,7 @@ Material:
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
@@ -285,7 +285,7 @@ Material:
     - _UnlitColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2624694024272382254
+--- !u!114 &1588210975331247307
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
