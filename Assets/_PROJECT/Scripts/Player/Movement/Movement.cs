@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
    Vector3 verticalVelocity = Vector3.zero;
    [SerializeField] private LayerMask groundMask;
    bool isGrounded;
+   
+   [SerializeField] private MouseLook mouseLook;
 
    private void Update()
    {
@@ -46,5 +48,23 @@ public class Movement : MonoBehaviour
    public void OnJumpPressed()
    {
       jump = true;
+   }
+
+   public void Teleport(Vector3 position, Quaternion rotation)
+   {
+      controller.enabled = false;
+      transform.position = position;
+      controller.enabled = true;
+      
+      verticalVelocity = Vector3.zero;
+      jump = false;
+
+      if (mouseLook != null)
+      {
+         Vector3 euler = rotation.eulerAngles;
+         mouseLook.SetRotation(euler);
+      }
+
+      Physics.SyncTransforms();
    }
 }

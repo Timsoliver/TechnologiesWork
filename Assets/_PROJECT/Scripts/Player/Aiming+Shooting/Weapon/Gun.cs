@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.VFX;
 
 public class Gun : MonoBehaviour
@@ -9,37 +8,31 @@ public class Gun : MonoBehaviour
     public float range = 100f;
 
     public Camera fpsCam;
-
-    private PlayerControls controls;
-    private InputAction shootAction;
     
     public ParticleSystem muzzleFlash;
     public GameObject hitEffectPrefab;
-
-    void Awake()
-    {
-        controls = new PlayerControls();
-    }
+    
+    private InputAction shootAction;
 
     void OnEnable()
     {
+        var controls = InputManager.Instance.Controls;
         shootAction = controls.GroundMovement.Shoot;
-        shootAction.Enable();
-
         shootAction.performed += ctx => Shoot();
     }
 
     void OnDisable()
     {
-        shootAction.Disable();
+        if(shootAction != null) 
+            shootAction.performed -= ctx => Shoot();
     }
 
     void Shoot()
     {
-        muzzleFlash.Play();
+        if (muzzleFlash != null)
+         muzzleFlash.Play();
         
-        RaycastHit hit;
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out RaycastHit hit, range))
         {
             Debug.Log(hit.transform.name);
 

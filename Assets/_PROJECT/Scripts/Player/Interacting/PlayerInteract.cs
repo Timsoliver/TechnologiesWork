@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -13,20 +10,20 @@ public class PlayerInteract : MonoBehaviour
     public GameObject interactionUI;
     public TextMeshProUGUI interactionText;
     
-    private PlayerControls controls;
     private InputAction interactAction;
-
+    private IInteractable currentInteractable;
+    
     private void OnEnable()
     {
+        var controls = InputManager.Instance.Controls;
         interactAction = controls.GroundMovement.Interact;
-        interactAction.Enable();
-
         interactAction.performed += OnInteractPerformed;
     }
 
     private void OnDisable()
     {
-        interactAction.Disable();
+        if (interactAction != null)
+         interactAction.performed -= OnInteractPerformed;
     }
 
     private void Update()
@@ -34,7 +31,6 @@ public class PlayerInteract : MonoBehaviour
         InteractionRay();
     }
     
-    private IInteractable currentInteractable; 
 
     void InteractionRay()
     {
@@ -44,8 +40,6 @@ public class PlayerInteract : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactDistance)) 
         {
-            //Debug.Log("Hit object: " + hit.collider.name);
-            
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 
             if (interactable != null)
@@ -71,6 +65,10 @@ public class PlayerInteract : MonoBehaviour
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
+        }
+        else
+        {
+            Debug.Log("No interaction found");
         }
     }
     

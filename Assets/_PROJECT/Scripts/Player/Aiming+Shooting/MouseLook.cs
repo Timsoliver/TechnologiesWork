@@ -36,6 +36,14 @@ public class MouseLook : MonoBehaviour
         mouseY = mouseInput.y * sensitivityY;
     }
 
+    public void SetRotation(Vector3 eulerAngles)
+    {
+        transform.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
+        
+        xRotation = eulerAngles.x;
+        playerCamera.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
+    }
+
     void OnDisable()
     {
         Cursor.lockState = CursorLockMode.None;
