@@ -94,7 +94,20 @@ public class Button : MonoBehaviour, IInteractable
         if(targetObjectB != null) targetObjectB.SetActive(!newState);
         
         mat.color = isChanged ? originalColor : buttonData.chosenColor;
+        
         isChanged = !isChanged;
+
+        if (buttonData.trainingMusic != null)
+        {
+            if (isChanged)
+            {
+                SoundManager.Instance.PlayTrainingMusic(buttonData.trainingMusic);
+            }
+            else
+            {
+                SoundManager.Instance.StopTrainingMusic();
+            }
+        }
         
         if (useTimer)
             StartTimer();

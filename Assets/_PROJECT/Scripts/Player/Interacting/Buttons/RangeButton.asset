@@ -18,3 +18,4 @@ MonoBehaviour:
   description: Interact
   offDescription: to Start Training
   onDescription: to Stop Training
+  trainingMusic: {fileID: 8300000, guid: 86ef0b8d84e8de245a552997c793be7a, type: 3}

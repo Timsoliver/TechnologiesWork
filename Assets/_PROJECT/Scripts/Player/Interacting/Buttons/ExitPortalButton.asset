@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonData
   chosenColor: {r: 1, g: 0.87240505, b: 0, a: 1}
   targetObjectNameA: Red Portal
-  targetObjectNameB: After Convo with NPC
+  targetObjectNameB: The Cube
   description: To Activate Portal
   offDescription: Activate portal
   onDescription: Deactivate portal
+  trainingMusic: {fileID: 0}

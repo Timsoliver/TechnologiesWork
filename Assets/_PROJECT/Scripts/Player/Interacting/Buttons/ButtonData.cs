@@ -14,4 +14,7 @@ public class ButtonData : ScriptableObject
     public string description = "Interact";
     public string offDescription = "Activate portal";
     public string onDescription = "Deactivate portal";
+
+    [Header("Training Music")]
+    public AudioClip trainingMusic;
 }

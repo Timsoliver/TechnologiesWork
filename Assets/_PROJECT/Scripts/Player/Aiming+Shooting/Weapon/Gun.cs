@@ -30,19 +30,27 @@ public class Gun : MonoBehaviour
     {
         var controls = InputManager.Instance.Controls;
         shootAction = controls.GroundMovement.Shoot;
-        shootAction.performed += ctx => Shoot();
+        shootAction.performed += OnShootPerformed;
     }
 
     void OnDisable()
     {
         if(shootAction != null) 
-            shootAction.performed -= ctx => Shoot();
+            shootAction.performed -= OnShootPerformed;
+    }
+
+    private void OnShootPerformed(InputAction.CallbackContext context)
+    {
+        Shoot();
     }
 
     void Shoot()
     {
         if (muzzleFlash != null)
          muzzleFlash.Play();
+        
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayShootSFX();
         
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out RaycastHit hit, range))
         {
@@ -52,6 +60,9 @@ public class Gun : MonoBehaviour
             if (target != null)
             {
                 target.TakeDamage(damage);
+                
+                if (SoundManager.Instance != null)
+                    SoundManager.Instance.PlayHitSFX();
             }
         }
         
