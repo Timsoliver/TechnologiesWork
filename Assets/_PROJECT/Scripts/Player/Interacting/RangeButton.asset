@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e4a43f36ff791740ac8687d94f5d411, type: 3}
-  m_Name: PortalButton
+  m_Name: RangeButton
   m_EditorClassIdentifier: Assembly-CSharp::ButtonData
-  chosenColor: {r: 1, g: 0.87240505, b: 0, a: 1}
-  targetObjectNameA: Pink Portal
-  targetObjectNameB: After Convo with NPC
-  description: To Activate Portal
-  offDescription: Activate portal
-  onDescription: Deactivate portal
+  chosenColor: {r: 1, g: 0, b: 0, a: 1}
+  targetObjectNameA: ACTIVE
+  targetObjectNameB: INACTIVE
+  description: Interact
+  offDescription: to Start Training
+  onDescription: to Stop Training

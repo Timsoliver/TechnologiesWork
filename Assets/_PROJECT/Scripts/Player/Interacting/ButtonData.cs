@@ -7,7 +7,8 @@ public class ButtonData : ScriptableObject
     public Color chosenColor = Color.red;
     
     [Header("Interaction Settings")]
-    public string targetObjectName;
+    public string targetObjectNameA;
+    public string targetObjectNameB;
 
     [Header("Prompt Text")]
     public string description = "Interact";

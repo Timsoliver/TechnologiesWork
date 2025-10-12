@@ -11,9 +11,21 @@ public class Gun : MonoBehaviour
     
     public ParticleSystem muzzleFlash;
     public GameObject hitEffectPrefab;
+
+    private GameObject hitEffectInstance;
+    private ParticleSystem hitEffectPS;
     
     private InputAction shootAction;
 
+    void Start()
+    {
+        if (hitEffectPrefab != null)
+        {
+            hitEffectInstance = Instantiate(hitEffectPrefab);
+            hitEffectInstance.SetActive(false);
+            hitEffectPS = hitEffectInstance.GetComponent<ParticleSystem>();
+        }
+    }
     void OnEnable()
     {
         var controls = InputManager.Instance.Controls;
@@ -34,8 +46,6 @@ public class Gun : MonoBehaviour
         
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out RaycastHit hit, range))
         {
-            Debug.Log(hit.transform.name);
-
             SpawnHitEffect(hit);
 
             Target target = hit.transform.GetComponent<Target>();
@@ -51,8 +61,13 @@ public class Gun : MonoBehaviour
     {
         if (hitEffectPrefab != null)
         {
-            VisualEffect vfx = Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal)).GetComponent<VisualEffect>();
-            vfx.Play();
+            hitEffectInstance.transform.position = hit.point;
+            hitEffectInstance.transform.rotation = Quaternion.LookRotation(hit.normal);
+            hitEffectInstance.SetActive(false);
+            hitEffectInstance.SetActive(true);
+            
+            if (hitEffectPS != null)
+                hitEffectPS.Play();
         }
     }
 }

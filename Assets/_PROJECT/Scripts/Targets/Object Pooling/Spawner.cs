@@ -1,60 +1,83 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
+
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private int poolSize = 5;
+    [Header("Pool and Spawning")]
+    [SerializeField] private ObjectPool objectPool;
+
+    [SerializeField] private int enableOnActivateCount = 5;
+    [SerializeField] private bool autoSpawn = false;
     [SerializeField] private int maxActiveTargets = 3;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private Vector3 spawnAreaSize = new Vector3(10f, 0f, 10f);
-    [SerializeField] private GameObject targetPrefab;
     
-    private ObjectPool objectPool;
-    private float spawnTimer;
-    private List<GameObject> targetPool = new List<GameObject>();
+    [Header("Optional")]
+    public bool callHighScoreOnDisable = false;
+   
+    private Coroutine spawnCoroutine;
 
-    void Start()
+    private void Reset()
     {
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject t = Instantiate(targetPrefab);
-            t.SetActive(true);
-            t.transform.position = GetRandomPosition();
-            targetPool.Add(t);
-        }
+        if (objectPool == null)
+            objectPool = FindObjectOfType<ObjectPool>();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnInterval)
+        if (objectPool == null)
         {
-            spawnTimer = 0f;
-            TrySpawnTarget();
-        }
-    }
-
-    void TrySpawnTarget()
-    {
-        int activeCount = 0;
-        foreach (GameObject t in targetPool)
-        {
-            if (t.activeInHierarchy) activeCount++;
-        }
-
-        if (activeCount < maxActiveTargets) return;
-
-        foreach (GameObject t in targetPool)
-        {
-            if (!t.activeInHierarchy)
+            objectPool = FindObjectOfType<ObjectPool>();
+            if (objectPool == null)
             {
-                t.transform.position = GetRandomPosition();
-                t.SetActive(true);
-                break;
+                Debug.LogError("Spawner: No ObjectPool found.");
+                return;
             }
         }
+
+        for (int i = 0; i < enableOnActivateCount; i++)
+        {
+            TryActivateOne();
+        }
+
+        if (autoSpawn)
+            spawnCoroutine = StartCoroutine(SpawnLoop());
     }
 
+    private void OnDisable()
+    {
+        if (spawnCoroutine != null)
+            StopCoroutine(spawnCoroutine);
+        
+        if (objectPool != null)
+            objectPool.ReturnAll();
+        
+        if (callHighScoreOnDisable && GameManager.Instance != null)
+            GameManager.Instance.CheckHighScoreAndReset();
+    }
+
+    private IEnumerator SpawnLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+            int activeCount = objectPool.GetAllActive().Length;
+            if (activeCount < maxActiveTargets)
+                TryActivateOne();
+        }
+    }
+
+    private void TryActivateOne()
+    {
+        GameObject t = objectPool.GetTarget();
+        if (t != null)
+        {
+            t.transform.position = GetRandomPosition();
+            t.SetActive(true);
+        }
+    }
+    
     Vector3 GetRandomPosition()
     {
         Vector3 randomOffset = new Vector3(
