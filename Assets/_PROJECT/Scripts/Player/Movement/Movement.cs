@@ -17,6 +17,11 @@ public class Movement : MonoBehaviour
    
    [SerializeField] private MouseLook mouseLook;
 
+   void Awake()
+   {
+      controller = GetComponent<CharacterController>();
+   }
+   
    private void Update()
    {
       isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
@@ -68,3 +73,4 @@ public class Movement : MonoBehaviour
       Physics.SyncTransforms();
    }
 }
+

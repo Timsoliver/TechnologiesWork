@@ -48,6 +48,12 @@ public class PlayerInteract : MonoBehaviour
                 currentInteractable = interactable;
                 interactionText.text = interactable.GetDescription();
             }
+            else if (hit.collider.CompareTag("Orb"))
+            {
+                hitSomething = true;
+                currentInteractable = null;
+                interactionText.text = "Talk to Orbius";
+            }
             else
             {
                 currentInteractable = null;
@@ -68,7 +74,16 @@ public class PlayerInteract : MonoBehaviour
         }
         else
         {
-            Debug.Log("No interaction found");
+            Ray ray = mainCam.ViewportPointToRay(Vector3.one/2f);
+            if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
+            {
+                if (hit.collider.CompareTag("Orb"))
+                {
+                    OrbMenuController orbMenu = FindObjectOfType<OrbMenuController>();
+                    if(orbMenu != null)
+                        orbMenu.OpenOrbMenu();
+                }
+            }
         }
     }
     

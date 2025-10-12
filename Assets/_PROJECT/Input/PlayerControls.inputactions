@@ -195,7 +195,7 @@
             ]
         },
         {
-            "name": "Other",
+            "name": "UI",
             "id": "5f99fefc-cc65-4fd0-b37d-c166b6056704",
             "actions": [
                 {
@@ -212,7 +212,7 @@
                 {
                     "name": "",
                     "id": "30e47e93-1927-43ee-b06e-1eecee1c5f4f",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
