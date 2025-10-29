@@ -8,6 +8,10 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] MazeCell mazeCellPrefab;
 
+    [SerializeField] private GameObject optionUI;
+    [SerializeField] private GameObject promptUI;
+    
+    
     [Header("Dimensions")] 
     [SerializeField] private int mazeWidth;
     [SerializeField] private int mazeDepth;
@@ -31,6 +35,9 @@ public class MazeGenerator : MonoBehaviour
 
         GenerateMaze(null, mazeGrid[0, 0]);
         GetComponent<NavMeshSurface>().BuildNavMesh();
+        
+        promptUI.SetActive(false);
+        optionUI.SetActive(true);
     }
 
     private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell)
