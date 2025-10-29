@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-  public float health = 10f;
+  [SerializeField] private float startHealth = 10f;
+  private float health;
 
   void OnEnable()
   {
-    health = 10f;
+    health = startHealth;
   }
   public void TakeDamage(float amount)
   {
@@ -23,6 +24,5 @@ public class Target : MonoBehaviour
       GameManager.Instance.AddScore(1);
     
     gameObject.SetActive(false);
-    health = 10f;
   }
 }
