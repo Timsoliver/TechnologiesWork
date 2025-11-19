@@ -69,6 +69,14 @@ public class Button : MonoBehaviour, IInteractable
                 t.SetActive(false);
         }
 
+        if (buttonData != null && buttonData.trainingMusic != null && SoundManager.Instance != null)
+        {
+            if (SoundManager.Instance.IsTrainingMusicActive())
+            {
+                SoundManager.Instance.StopTrainingMusic();
+            }
+        }
+
         if (GameManager.Instance != null)
             GameManager.Instance.CheckHighScoreAndReset();
     }
@@ -97,9 +105,9 @@ public class Button : MonoBehaviour, IInteractable
         
         isChanged = !isChanged;
 
-        if (buttonData.trainingMusic != null)
+        if (buttonData.trainingMusic != null && SoundManager.Instance != null)
         {
-            if (isChanged)
+            if (!SoundManager.Instance.IsTrainingMusicActive())
             {
                 SoundManager.Instance.PlayTrainingMusic(buttonData.trainingMusic);
             }
@@ -151,6 +159,12 @@ public class Button : MonoBehaviour, IInteractable
         }
         
         UpdateTimerText(0);
+
+        if (buttonData.trainingMusic != null && SoundManager.Instance != null &&
+            SoundManager.Instance.IsTrainingMusicActive())
+        {
+            SoundManager.Instance.StopTrainingMusic();
+        }
     }
 
     private void ResetButtonColor()

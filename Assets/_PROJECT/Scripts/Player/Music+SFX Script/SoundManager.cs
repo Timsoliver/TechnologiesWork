@@ -39,10 +39,17 @@ public class SoundManager : MonoBehaviour
    public void PlayMainMusic()
    {
       if (ambientMusic == null || mainMusicSource == null) return;
+      
+      if (trainingMusicSource != null)
+         trainingMusicSource.Stop();
 
+      mainMusicSource.Stop();
       mainMusicSource.clip = ambientMusic;
       mainMusicSource.loop = true;
       mainMusicSource.Play();
+
+      trainingMusicActive = false;
+      currentTrainingClip = null;
    }
 
    public void StopMainMusic()
@@ -55,11 +62,12 @@ public class SoundManager : MonoBehaviour
    {
       if (clip == null || trainingMusicSource == null) return;
       
-      if (trainingMusicSource.isPlaying)
-         trainingMusicSource.Stop();
+      if (mainMusicSource != null)
+         mainMusicSource.Stop();
       
-      StopMainMusic();
       
+      
+      trainingMusicSource.Stop();
       trainingMusicSource.clip = clip;
       trainingMusicSource.loop = true;
       trainingMusicSource.Play();
