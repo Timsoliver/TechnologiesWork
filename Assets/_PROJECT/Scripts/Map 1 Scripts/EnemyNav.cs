@@ -3,15 +3,42 @@ using UnityEngine.AI;
 
 public class EnemyNav : MonoBehaviour
 {
-    [SerializeField] Vector3 desiredDestination;
-    void Start()
+    private NavMeshAgent enemy;
+    private Transform player;
+    
+    private void Awake()
     {
-        GetComponent<NavMeshAgent>().destination = desiredDestination;
+        enemy = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        if (enemy != null)
+        {
+            enemy.isStopped = false;
+            enemy.ResetPath();
+        }
+
+        FindPlayer();
+    }
+  
     void Update()
     {
+        if (player == null)
+        {
+            FindPlayer();
+            return;
+        }
         
+        enemy.SetDestination(player.position);
+    }
+
+    private void FindPlayer()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
     }
 }

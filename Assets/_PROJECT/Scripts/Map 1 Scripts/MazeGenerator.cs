@@ -18,6 +18,11 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] mazeGrid;
     
+    public bool MazeGenerated { get; private set; } = false;
+    public int MazeWidth { get { return mazeWidth; } }
+    public int MazeDepth { get { return mazeDepth; } }
+    
+    
     IEnumerator Start()
     {
         mazeGrid = new MazeCell[mazeWidth, mazeDepth];
@@ -32,12 +37,13 @@ public class MazeGenerator : MonoBehaviour
         }
 
         yield return GenerateMaze(null, mazeGrid[0, 0]);
-
-        GenerateMaze(null, mazeGrid[0, 0]);
+        
         GetComponent<NavMeshSurface>().BuildNavMesh();
         
         promptUI.SetActive(false);
         optionUI.SetActive(true);
+        
+        MazeGenerated = true;
     }
 
     private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -149,9 +155,9 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 GetCellPos(int x, int z)
     {
-        
+        if (mazeGrid == null) return Vector3.zero;
+        return mazeGrid[x, z].transform.position;
     }
 }
